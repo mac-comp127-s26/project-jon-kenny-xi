@@ -7,7 +7,7 @@ import java.awt.Color;
 
 
 public class Pigs {
-    private int bricksRemaining;
+    private int bricks;
     private static final int BRICKS_ROWS = 5;
     private static final int BRICKS_COLS = 1;
     private static final double BRICK_SPACING = 5;
@@ -17,9 +17,9 @@ public class Pigs {
     private static final int CANVAS_HEIGHT = 800;
 
     private CanvasWindow canvas;
-    
+
     private void createBricks() {
-        bricksRemaining = BRICKS_ROWS*BRICKS_COLS;
+        bricks = BRICKS_ROWS*BRICKS_COLS;
         double brickWidth = (CANVAS_WIDTH - (BRICKS_COLS+1) * BRICK_SPACING)/BRICKS_COLS;
         for (int row = 0; row < BRICKS_ROWS; row++) {
             for (int col = 0; col < BRICKS_COLS; col++) {
