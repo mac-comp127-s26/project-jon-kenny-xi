@@ -7,6 +7,8 @@ public class AngryBirdGame {
     private CanvasWindow canvas;
     private Birds birds;
 
+    
+
     public AngryBirdGame() {
         double startX = CANVAS_WIDTH / 2;
         double startY = CANVAS_HEIGHT * 0.7;
