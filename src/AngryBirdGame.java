@@ -1,14 +1,15 @@
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 
+
 public class AngryBirdGame {
     private static final int CANVAS_WIDTH = 600;
     private static final int CANVAS_HEIGHT = 800;
 
     private CanvasWindow canvas;
     private Birds birds;
-
-    private GraphicsObject bricks;
+    private Pigs pigs;
+    
     private static final int BRICKS_ROWS = 5;
     private static final int BRICKS_COLS = 1;
     private static final double BRICK_SPACING = 5;
@@ -21,6 +22,7 @@ public class AngryBirdGame {
         double startY = CANVAS_HEIGHT * 0.7;
         canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
         birds = new Birds(canvas, startX, startY);
+        pigs = new Pigs(canvas);
 
         // make the bird move (no direction yet)
         canvas.animate(() -> {
@@ -30,10 +32,7 @@ public class AngryBirdGame {
         });
     }
 
-    private void createBricks() {
-        canvas.add(bricks);
-        bricks.add(bricks);
-    }
+   
 
     // wait for the pigs
     private void checkCollision() {

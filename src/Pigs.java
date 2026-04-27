@@ -4,6 +4,8 @@ import edu.macalester.graphics.CanvasWindow;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Pigs {
@@ -17,6 +19,12 @@ public class Pigs {
     private static final int CANVAS_HEIGHT = 800;
 
     private CanvasWindow canvas;
+    private List<Rectangle> brickList = new ArrayList<>();
+
+    public Pigs(CanvasWindow canvas) {
+        this.canvas = canvas;
+        createBricks();
+    }
 
     private void createBricks() {
         bricks = BRICKS_ROWS*BRICKS_COLS;
@@ -31,5 +39,8 @@ public class Pigs {
                 canvas.add(brick);
             }
         }
+    }
+    public List<Rectangle> getBricks() {
+        return brickList;
     }
 }
