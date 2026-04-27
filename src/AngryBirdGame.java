@@ -23,6 +23,10 @@ public class AngryBirdGame {
         });
     }
 
+    private void createBricks() {
+        
+    }
+
     // wait for the pigs
     private void checkCollision() {
         double r = 30; 
