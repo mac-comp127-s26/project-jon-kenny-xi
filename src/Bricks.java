@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Pigs {
+public class Bricks {
     private int bricks;
     private static final int BRICKS_ROWS = 5;
     private static final int BRICKS_COLS = 1;
@@ -21,7 +21,7 @@ public class Pigs {
     private CanvasWindow canvas;
     private List<Rectangle> brickList = new ArrayList<>();
 
-    public Pigs(CanvasWindow canvas) {
+    public Bricks(CanvasWindow canvas) {
         this.canvas = canvas;
         createBricks();
     }
@@ -35,7 +35,7 @@ public class Pigs {
                 double Y = BRICK_SPACING+row*(BRICK_HEIGHT+BRICK_SPACING)+50;
                 Rectangle brick = new Rectangle(X,Y,brickWidth,BRICK_HEIGHT);
                 brick.setFilled(true);
-                brick.setFillColor(Color.GREEN);
+                brick.setFillColor(new Color(153, 102, 0));
                 canvas.add(brick);
             }
         }

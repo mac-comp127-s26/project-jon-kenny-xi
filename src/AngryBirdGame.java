@@ -8,7 +8,7 @@ public class AngryBirdGame {
 
     private CanvasWindow canvas;
     private Birds birds;
-    private Pigs pigs;
+    private Bricks bricks;
     
     private static final int BRICKS_ROWS = 5;
     private static final int BRICKS_COLS = 1;
@@ -22,7 +22,7 @@ public class AngryBirdGame {
         double startY = CANVAS_HEIGHT * 0.7;
         canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
         birds = new Birds(canvas, startX, startY);
-        pigs = new Pigs(canvas);
+        bricks = new Bricks(canvas);
 
         // make the bird move (no direction yet)
         canvas.animate(() -> {
