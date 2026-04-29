@@ -24,8 +24,8 @@ public class AngryBirdGame {
     public AngryBirdGame() {
         double startX = CANVAS_WIDTH / 2;
         double startY = CANVAS_HEIGHT * 0.7;
-        double anchorX = 200;
-        double anchorY = 500;
+        double anchorX = 150;
+        double anchorY = 750;
         canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
         bricks = new Bricks(canvas);
         pigs = new Pigs(canvas, 500, 200);
@@ -34,7 +34,6 @@ public class AngryBirdGame {
 
         setupEvents();
 
-        // make the bird move (no direction yet)
         canvas.animate(() -> {
             birds.updateBirdPosition();
             
@@ -44,7 +43,6 @@ public class AngryBirdGame {
 
     private void setupEvents() {
         canvas.onMouseDown(event -> {
-            // Only allow dragging if the bird isn't already flying
             if (!birds.isFlying()) {
                 dragging = true;
             }
@@ -55,10 +53,8 @@ public class AngryBirdGame {
                 Point anchor = slingshot.getAnchor();
                 Point mousePos = event.getPosition();
                 
-                // Limit the drag distance
                 double dist = mousePos.distance(anchor);
                 if (dist > slingshot.getMaxDrag()) {
-                    // Truncate the vector if pulled too far
                     double scale = slingshot.getMaxDrag() / dist;
                     mousePos = new Point(
                         anchor.getX() + (mousePos.getX() - anchor.getX()) * scale,
@@ -76,8 +72,7 @@ public class AngryBirdGame {
                 dragging = false;
                 slingshot.hideRope();
 
-                // PHYSICS: Launch bird in the opposite direction of the drag
-                double launchPower = 0.15; // Adjust for speed
+                double launchPower = 0.15;
                 double diffX = slingshot.getAnchor().getX() - birds.getX();
                 double diffY = slingshot.getAnchor().getY() - birds.getY();
                 
