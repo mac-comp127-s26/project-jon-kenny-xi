@@ -16,7 +16,7 @@ public class Pigs {
     public Pigs(CanvasWindow canvas, double X, double Y) {
         pigImage = new Image(0, 0, "pig.png");
         pigImage.setMaxWidth(60);
-        
+     
         this.pigImage.setMaxWidth(60);
         this.pigImage.setCenter(X, Y);
         canvas.add(pigImage);
