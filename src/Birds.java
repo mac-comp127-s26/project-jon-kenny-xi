@@ -11,8 +11,6 @@ public class Birds {
     private double gravity = 0.15;
     private boolean isFlying = false;
 
-    private int pauseFrames = 0;
-
     public Birds(CanvasWindow canvas, double centerX, double centerY) {
         birdImage = new Image(0, 0, "redbird.png");
         birdImage.setMaxWidth(60);
@@ -46,24 +44,6 @@ public class Birds {
     public boolean isFlying() { 
         return isFlying; 
     }
-
-    // public void updatePosition(double canvasWidth, double canvasHeight) {
-    //     if (pauseFrames > 0) {
-    //         pauseFrames--;
-    //         return; 
-    //     }
-
-    //     birdImage.moveBy(dx, dy);
-
-    // }
-    
-    // public double getX() {
-    //     return birdImage.getX();
-    // }
-
-    // public double getY() {
-    //     return birdImage.getY();
-    // }
 
     public void reset(double centerX, double centerY) {
         birdImage.setCenter(centerX, centerY);

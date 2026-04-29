@@ -7,7 +7,7 @@ public class Slingshot {
     private Point anchor;
     private Line rope;
     private CanvasWindow canvas;
-    private double maxDrag = 100; // How far you can pull back
+    private double maxDrag = 100; 
 
     public Slingshot(CanvasWindow canvas, double x, double y) {
         this.canvas = canvas;
