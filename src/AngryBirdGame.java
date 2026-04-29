@@ -28,7 +28,7 @@ public class AngryBirdGame {
         double anchorY = 750;
         canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
         bricks = new Bricks(canvas);
-        pigs = new Pigs(canvas, 500, 200);
+        pigs = new Pigs(canvas, 1000, 2000);
         birds = new Birds(canvas, startX, startY);
         slingshot = new Slingshot(canvas, anchorX, anchorY);
 
