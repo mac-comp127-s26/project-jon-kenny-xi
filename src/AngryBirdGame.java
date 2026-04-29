@@ -1,15 +1,18 @@
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
+import edu.macalester.graphics.Point;
 
 
 public class AngryBirdGame {
-    private static final int CANVAS_WIDTH = 600;
-    private static final int CANVAS_HEIGHT = 800;
+    private static final int CANVAS_WIDTH = 2500;
+    private static final int CANVAS_HEIGHT = 1680;
 
     private CanvasWindow canvas;
     private Birds birds;
     private Bricks bricks;
     private Pigs pigs;
+    private Slingshot slingshot;
+    private boolean dragging = false;
     
     private static final int BRICKS_ROWS = 5;
     private static final int BRICKS_COLS = 1;
@@ -19,21 +22,65 @@ public class AngryBirdGame {
 
 
     public AngryBirdGame() {
+        double startX = CANVAS_WIDTH / 2;
+        double startY = CANVAS_HEIGHT * 0.7;
         canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
         bricks = new Bricks(canvas);
         pigs = new Pigs(canvas, 500, 200);
-        double startX = CANVAS_WIDTH / 2;
-        double startY = CANVAS_HEIGHT * 0.7;
         birds = new Birds(canvas, startX, startY);
-        
-        
-        
+        slingshot = new Slingshot(canvas, startX, startY);
+
+        setupEvents();
 
         // make the bird move (no direction yet)
         canvas.animate(() -> {
-            birds.updatePosition(CANVAS_WIDTH, CANVAS_HEIGHT);
+            birds.updateBirdPosition();
             
             checkCollision();
+        });
+    }
+
+    private void setupEvents() {
+        canvas.onMouseDown(event -> {
+            // Only allow dragging if the bird isn't already flying
+            if (!birds.isFlying()) {
+                dragging = true;
+            }
+        });
+
+        canvas.onDrag(event -> {
+            if (dragging) {
+                Point anchor = slingshot.getAnchor();
+                Point mousePos = event.getPosition();
+                
+                // Limit the drag distance
+                double dist = mousePos.distance(anchor);
+                if (dist > slingshot.getMaxDrag()) {
+                    // Truncate the vector if pulled too far
+                    double scale = slingshot.getMaxDrag() / dist;
+                    mousePos = new Point(
+                        anchor.getX() + (mousePos.getX() - anchor.getX()) * scale,
+                        anchor.getY() + (mousePos.getY() - anchor.getY()) * scale
+                    );
+                }
+                
+                birds.setPosition(mousePos.getX(), mousePos.getY());
+                slingshot.updateRope(new Point(mousePos.getX(), mousePos.getY()));
+            }
+        });
+
+        canvas.onMouseUp(event -> {
+            if (dragging) {
+                dragging = false;
+                slingshot.hideRope();
+
+                // PHYSICS: Launch bird in the opposite direction of the drag
+                double launchPower = 0.15; // Adjust for speed
+                double diffX = slingshot.getAnchor().getX() - birds.getX();
+                double diffY = slingshot.getAnchor().getY() - birds.getY();
+                
+                birds.setVelocity(diffX * launchPower, diffY * launchPower);
+            }
         });
     }
 
