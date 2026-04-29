@@ -19,11 +19,11 @@ public class AngryBirdGame {
 
 
     public AngryBirdGame() {
-        double startX = CANVAS_WIDTH / 2;
-        double startY = CANVAS_HEIGHT * 0.7;
         canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
         bricks = new Bricks(canvas);
         pigs = new Pigs(canvas, 500, 200);
+        double startX = CANVAS_WIDTH / 2;
+        double startY = CANVAS_HEIGHT * 0.7;
         birds = new Birds(canvas, startX, startY);
         
         
