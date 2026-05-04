@@ -23,6 +23,9 @@ public class AngryBirdGame {
     private java.util.List<Pigs> pigList = new ArrayList<>();
     private List<Birds> activeBirds = new ArrayList<>();
 
+    private boolean gameOver = false;
+    private int lives = 3;
+
 
     public AngryBirdGame() {
         double startX = CANVAS_WIDTH / 2;
@@ -43,12 +46,21 @@ public class AngryBirdGame {
         setupEvents();
 
         canvas.animate(() -> {
+            if (gameOver) {
+                return; 
+            }
             updateGame();
+            checkGameState();
         });
     }
 
     private void prepareNewBird() {
-        currentBird = new Birds(canvas, slingshot.getAnchor().getX(), slingshot.getAnchor().getY());
+        if (lives > 0) {
+            currentBird = new Birds(canvas, slingshot.getAnchor().getX(), slingshot.getAnchor().getY());
+            lives--; 
+        } else {
+            currentBird = null; 
+        }
     }
 
     private void setupEvents() {
@@ -144,6 +156,23 @@ public class AngryBirdGame {
         }
         return false;
 
+    }
+    private void checkGameState() {
+        if (pigList.isEmpty()) {
+            endGame("You Win!");
+            return;
+        }
+        if (currentBird == null && activeBirds.isEmpty()) {
+            endGame("Game Over");
+        }
+    }
+
+    private void endGame(String message) {
+        gameOver = true;    
+        edu.macalester.graphics.GraphicsText text = new edu.macalester.graphics.GraphicsText(message);
+        text.setFontSize(80); 
+        text.setCenter(CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0); 
+        canvas.add(text);
     }
 
 
