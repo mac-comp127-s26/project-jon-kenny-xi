@@ -31,6 +31,11 @@ public class Pigs {
         return pigImage.getY();
     }
 
+
+    public Image getImage() {
+        return pigImage;
+    }
+
     
 
 }

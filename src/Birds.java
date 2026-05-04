@@ -10,6 +10,7 @@ public class Birds {
     private double dy = 0; 
     private double gravity = 0.15;
     private boolean isFlying = false;
+    private int pauseFrames = 180;
 
     public Birds(CanvasWindow canvas, double centerX, double centerY) {
         birdImage = new Image(0, 0, "redbird.png");
@@ -36,10 +37,10 @@ public class Birds {
     }
 
     public double getX() { 
-        return birdImage.getCenter().getX(); 
+        return birdImage.getX(); 
     }
     public double getY() { 
-        return birdImage.getCenter().getY(); 
+        return birdImage.getY(); 
     }
     public boolean isFlying() { 
         return isFlying; 
@@ -49,5 +50,10 @@ public class Birds {
         birdImage.setCenter(centerX, centerY);
         dx = 5;
         dy = -5;
+        pauseFrames = 100;
+    }
+ 
+    public Image getImage() {
+        return birdImage;
     }
 }
