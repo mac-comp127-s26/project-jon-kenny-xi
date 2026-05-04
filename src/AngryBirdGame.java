@@ -24,7 +24,7 @@ public class AngryBirdGame {
     private List<Birds> activeBirds = new ArrayList<>();
 
     private boolean gameOver = false;
-    private int lives = 3;
+    private int lives = 10;
 
 
     public AngryBirdGame() {
