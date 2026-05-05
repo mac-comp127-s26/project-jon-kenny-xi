@@ -26,6 +26,10 @@ public class AngryBirdGame {
     private boolean gameOver = false;
     private int lives = 10;
 
+    private edu.macalester.graphics.GraphicsText endMessage;
+
+   
+
 
     public AngryBirdGame() {
         double startX = CANVAS_WIDTH / 2;
@@ -33,6 +37,12 @@ public class AngryBirdGame {
         double anchorX = 150;
         double anchorY = 750;
         canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
+        edu.macalester.graphics.ui.Button resetButton=new edu.macalester.graphics.ui.Button("Reset");
+        resetButton.setPosition(50,50);
+        resetButton.onClick(() -> resetGame());
+        canvas.add(resetButton);
+        initPigs();
+        slingshot=new Slingshot(canvas, anchorX, anchorY);
         bricks = new Bricks(canvas);
         pigList = new java.util.ArrayList<>();
         pigList.add(new Pigs(canvas, 1050, 785));
@@ -169,12 +179,35 @@ public class AngryBirdGame {
 
     private void endGame(String message) {
         gameOver = true;    
-        edu.macalester.graphics.GraphicsText text = new edu.macalester.graphics.GraphicsText(message);
-        text.setFontSize(80); 
-        text.setCenter(CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0); 
-        canvas.add(text);
+        endMessage = new edu.macalester.graphics.GraphicsText(message);
+        endMessage.setFontSize(80); 
+        endMessage.setCenter(CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0); 
+        canvas.add(endMessage);
     }
 
+     private void initPigs() {
+        pigList.clear();
+        pigList.add(new Pigs(canvas, 1050, 785));
+        pigList.add(new Pigs(canvas, 1250, 685));
+        pigList.add(new Pigs(canvas, 1450, 785));
+    }
+
+    private void resetGame() {
+        for (Birds bird : activeBirds) {
+            canvas.remove(bird.getImage());
+        }
+        for (Pigs pig : pigList) {
+            canvas.remove(pig.getImage());
+        }
+        if (endMessage != null) {
+            canvas.remove(endMessage);
+        }
+        activeBirds.clear();
+        gameOver = false;
+        lives = 10;
+        initPigs();
+        prepareNewBird();
+    }
 
     public static void main(String[] args) {
         new AngryBirdGame();
