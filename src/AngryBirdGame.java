@@ -44,12 +44,6 @@ public class AngryBirdGame {
         initPigs();
         slingshot=new Slingshot(canvas, anchorX, anchorY);
         bricks = new Bricks(canvas);
-        pigList = new java.util.ArrayList<>();
-        pigList.add(new Pigs(canvas, 1050, 785));
-        pigList.add(new Pigs(canvas, 1250, 685));
-        pigList.add(new Pigs(canvas, 1450, 785));
-
-        slingshot = new Slingshot(canvas, anchorX, anchorY);
 
         prepareNewBird();
 

@@ -46,12 +46,6 @@ public class Birds {
         return isFlying; 
     }
 
-    public void reset(double centerX, double centerY) {
-        birdImage.setCenter(centerX, centerY);
-        dx = 5;
-        dy = -5;
-        pauseFrames = 100;
-    }
  
     public Image getImage() {
         return birdImage;
