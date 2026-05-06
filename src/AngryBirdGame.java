@@ -28,6 +28,9 @@ public class AngryBirdGame {
 
     private edu.macalester.graphics.GraphicsText endMessage;
 
+    private edu.macalester.graphics.GraphicsText livesText;
+    private edu.macalester.graphics.GraphicsText pigsText;
+
    
 
 
@@ -40,6 +43,17 @@ public class AngryBirdGame {
         edu.macalester.graphics.ui.Button resetButton=new edu.macalester.graphics.ui.Button("Reset");
         resetButton.setPosition(50,50);
         resetButton.onClick(() -> resetGame());
+
+        livesText = new edu.macalester.graphics.GraphicsText("Lives: " + lives);
+        livesText.setPosition(50, 90); 
+        livesText.setFontSize(24);
+        canvas.add(livesText);
+
+        pigsText = new edu.macalester.graphics.GraphicsText("Pigs: 3"); 
+        pigsText.setPosition(50, 120); 
+        pigsText.setFontSize(24);
+        canvas.add(pigsText);
+
         canvas.add(resetButton);
         initPigs();
         slingshot=new Slingshot(canvas, anchorX, anchorY);
@@ -54,6 +68,7 @@ public class AngryBirdGame {
                 return; 
             }
             updateGame();
+            updateHUD();
             checkGameState();
         });
     }
@@ -201,6 +216,13 @@ public class AngryBirdGame {
         lives = 10;
         initPigs();
         prepareNewBird();
+    }
+
+    private void updateHUD() {
+        if (livesText != null && pigsText != null) {
+            livesText.setText("Lives: " + lives);
+            pigsText.setText("Pigs: " + pigList.size()); 
+        }
     }
 
     public static void main(String[] args) {
