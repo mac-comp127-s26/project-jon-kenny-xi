@@ -23,7 +23,7 @@ public class Bricks {
     private static final double TOP_BRICK_START_Y = 15;
     private static final int TOP_BRICKS_COLS = 3;
     private static final int TOP_BRICKS_ROWS = 3;
-    
+
     private static final int CANVAS_WIDTH = 600;
     private static final int CANVAS_HEIGHT = 800;
 
@@ -36,16 +36,15 @@ public class Bricks {
         createTopBricks();
     }
 
-   
 
     private void createBricks() {
-        bricks = BRICKS_ROWS*BRICKS_COLS;
-        double brickWidth = (CANVAS_WIDTH - (BRICKS_COLS+1) * BRICK_SPACING)/BRICKS_COLS;
+        bricks = BRICKS_ROWS * BRICKS_COLS;
+        double brickWidth = (CANVAS_WIDTH - (BRICKS_COLS + 1) * BRICK_SPACING) / BRICKS_COLS;
         for (int row = 0; row < BRICKS_ROWS; row++) {
             for (int col = 0; col < BRICKS_COLS; col++) {
-                double X = BRICKS_START_X+col*(brickWidth+BRICK_SPACING);
-                double Y = BRICKS_START_Y+row*(BRICK_HEIGHT+BRICK_SPACING)+50;
-                Rectangle brick = new Rectangle(X,Y,brickWidth,BRICK_HEIGHT);
+                double X = BRICKS_START_X + col * (brickWidth + BRICK_SPACING);
+                double Y = BRICKS_START_Y + row * (BRICK_HEIGHT + BRICK_SPACING) + 50;
+                Rectangle brick = new Rectangle(X, Y, brickWidth, BRICK_HEIGHT);
                 brick.setFilled(true);
                 brick.setFillColor(new Color(153, 102, 0));
                 canvas.add(brick);
@@ -58,12 +57,12 @@ public class Bricks {
         double topOfStack = BRICKS_START_Y + 50;
         double topBrickWidth = (CANVAS_WIDTH / TOP_BRICKS_COLS) - BRICK_SPACING;
         for (int col = 0; col < TOP_BRICKS_COLS; col++) {
-            for (int row = 0; row <TOP_BRICKS_ROWS; row++) {
+            for (int row = 0; row < TOP_BRICKS_ROWS; row++) {
                 double x = BRICKS_START_X + col * (topBrickWidth + BRICK_SPACING);
-                double brickHeight = (col == TOP_BRICKS_COLS/2)
-                    ? TOP_BRICK_HEIGHT*8
-                    : TOP_BRICK_HEIGHT*1.5;
-                double yOffset = (col == TOP_BRICKS_COLS/2) ? -100:0;
+                double brickHeight = (col == TOP_BRICKS_COLS / 2)
+                    ? TOP_BRICK_HEIGHT * 8
+                    : TOP_BRICK_HEIGHT * 1.5;
+                double yOffset = (col == TOP_BRICKS_COLS / 2) ? -100 : 0;
                 double y = topOfStack - TOP_BRICK_HEIGHT * (row + 1) - BRICK_SPACING * (row + 1) + yOffset;
                 Rectangle topBrick = new Rectangle(x, y, TOP_BRICK_WIDTH, brickHeight);
                 topBrick.setFilled(true);

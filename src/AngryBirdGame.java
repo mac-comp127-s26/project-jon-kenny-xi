@@ -31,8 +31,6 @@ public class AngryBirdGame {
     private edu.macalester.graphics.GraphicsText livesText;
     private edu.macalester.graphics.GraphicsText pigsText;
 
-   
-
 
     public AngryBirdGame() {
         double startX = CANVAS_WIDTH / 2;
@@ -40,23 +38,23 @@ public class AngryBirdGame {
         double anchorX = 150;
         double anchorY = 750;
         canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
-        edu.macalester.graphics.ui.Button resetButton=new edu.macalester.graphics.ui.Button("Reset");
-        resetButton.setPosition(50,50);
+        edu.macalester.graphics.ui.Button resetButton = new edu.macalester.graphics.ui.Button("Reset");
+        resetButton.setPosition(50, 50);
         resetButton.onClick(() -> resetGame());
 
         livesText = new edu.macalester.graphics.GraphicsText("Lives: " + lives);
-        livesText.setPosition(50, 90); 
+        livesText.setPosition(50, 90);
         livesText.setFontSize(24);
         canvas.add(livesText);
 
-        pigsText = new edu.macalester.graphics.GraphicsText("Pigs: 3"); 
-        pigsText.setPosition(50, 120); 
+        pigsText = new edu.macalester.graphics.GraphicsText("Pigs: 3");
+        pigsText.setPosition(50, 120);
         pigsText.setFontSize(24);
         canvas.add(pigsText);
 
         canvas.add(resetButton);
         initPigs();
-        slingshot=new Slingshot(canvas, anchorX, anchorY);
+        slingshot = new Slingshot(canvas, anchorX, anchorY);
         bricks = new Bricks(canvas);
 
         prepareNewBird();
@@ -65,7 +63,7 @@ public class AngryBirdGame {
 
         canvas.animate(() -> {
             if (gameOver) {
-                return; 
+                return;
             }
             updateGame();
             updateHUD();
@@ -76,9 +74,9 @@ public class AngryBirdGame {
     private void prepareNewBird() {
         if (lives > 0) {
             currentBird = new Birds(canvas, slingshot.getAnchor().getX(), slingshot.getAnchor().getY());
-            lives--; 
+            lives--;
         } else {
-            currentBird = null; 
+            currentBird = null;
         }
     }
 
@@ -134,11 +132,10 @@ public class AngryBirdGame {
 
             boolean hitPig = checkCollision(bird);
 
-            if (hitPig ) {
+            if (hitPig) {
                 canvas.remove(bird.getImage());
                 activeBirds.remove(i);
-            }
-            else if (bird.getY() > CANVAS_HEIGHT) {
+            } else if (bird.getY() > CANVAS_HEIGHT) {
                 canvas.remove(bird.getImage());
                 activeBirds.remove(i);
             }
@@ -153,9 +150,9 @@ public class AngryBirdGame {
 
         // Check the four points around the bird
         java.awt.geom.Point2D.Double[] points = {
-            new java.awt.geom.Point2D.Double(birdX + r, birdY - 1),           
-            new java.awt.geom.Point2D.Double(birdX + r, birdY + 2 * r + 1),   
-            new java.awt.geom.Point2D.Double(birdX - 1, birdY + r),           
+            new java.awt.geom.Point2D.Double(birdX + r, birdY - 1),
+            new java.awt.geom.Point2D.Double(birdX + r, birdY + 2 * r + 1),
+            new java.awt.geom.Point2D.Double(birdX - 1, birdY + r),
             new java.awt.geom.Point2D.Double(birdX + 2 * r + 1, birdY + r)
         };
 
@@ -176,6 +173,7 @@ public class AngryBirdGame {
         return false;
 
     }
+
     private void checkGameState() {
         if (pigList.isEmpty()) {
             endGame("You Win!");
@@ -187,14 +185,14 @@ public class AngryBirdGame {
     }
 
     private void endGame(String message) {
-        gameOver = true;    
+        gameOver = true;
         endMessage = new edu.macalester.graphics.GraphicsText(message);
-        endMessage.setFontSize(80); 
-        endMessage.setCenter(CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0); 
+        endMessage.setFontSize(80);
+        endMessage.setCenter(CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0);
         canvas.add(endMessage);
     }
 
-     private void initPigs() {
+    private void initPigs() {
         pigList.clear();
         pigList.add(new Pigs(canvas, 1050, 785));
         pigList.add(new Pigs(canvas, 1250, 685));
@@ -221,7 +219,7 @@ public class AngryBirdGame {
     private void updateHUD() {
         if (livesText != null && pigsText != null) {
             livesText.setText("Lives: " + lives);
-            pigsText.setText("Pigs: " + pigList.size()); 
+            pigsText.setText("Pigs: " + pigList.size());
         }
     }
 
