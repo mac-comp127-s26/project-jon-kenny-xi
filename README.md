@@ -1,6 +1,9 @@
 # Project Title Goes Here
 
 This GitHub repository includes the classes used for our final project, which is an Angry Birds Game. The classes include the actual Angry Birds Game, Birds, Bricks, Pigs, and the Slingshot.
+
+The version of VS Code needed is VSCode1.108.2, and the version of GitHub Desktop needed is Version 3.5.8 (arm64).
+
 When installing Java, you need to know what kind of computer you are using. For Window user, you just select the Windows icon. For Mac users, you need to know what kind of processor your computer has. In order to see this, go to the Apple Menu and press about this Mac. Look for a heading called either Processor or Chip, and it will say something that has either the word "Intel" or "Apple". Linux users can just select anything. First go to https://adoptium.net. Mac users will be sent to the Adoptium homepage where you will find a big red button. Double check that you have the offered installer, and open the installer when the downloading process is complete. Go through the installation process, and accept all the defaults. Windows users will go through the installation process accepting all the defaults. If the installer asks you to make changes to you device, click Yes. Ensure that the JAVA_HOME variable is selected by clicking the dropdown menu and selecting it. The folder area where JDK will be installed will be called "Eclipse Adoptium".
 The second step is downloading VS Code. In order to do this, go to https://code.visualstudio.com/ and click the download button. Mac users should move the downloaded file from the Downloads folder into the Applications folder. For Windows users, double-click the VS Code app to open and run it. Accept the license agreement and click Next. You can keep clicking “Next” to accept all the installation settings, with one caveat: make sure you enable the following three options on the “Select Additional Tasks” screen:
 ☑ Add "Open with Code" action to Windows Explorer file context menu
@@ -18,4 +21,12 @@ Once VS Code starts up and you get a Welcome screen, click the Extensions icon. 
 }
 Save the file and restart VS Code.
 
-Now we have to download Git. For Mac users, press command-space. Type the word Terminal. Click the top result.
+Now we have to download Git. For Mac users, press command-space. Type the word Terminal. Click the top result. In the window that appears, type git --version and press enter. If you see a message like this:
+Last login: Wed Aug 13 11:23:58 on ttys000 dan@macos ~ % git --version
+ git version 2.48.1 (Apple Git-128)
+ dan@macos ~
+then you have installed git in the past and you can disregard the new few steps.
+If you see an error message that says “No developer tools found” or “invalid active developer path,” then write sudo xcode-select --reset in the Terminal and press enter. It will ask you for your computer password, but you will not be able to see what you are typing, but it is working! Type your password and press return. Then, type xcode-select --install into the Terminal and press enter.
+Be patient; the installation process will take a few minutes. Once it’s done, go back to that Terminal window and type git --version again. You should get a version number. For Windows users, go to http://git-scm.com/downloads and click the Download button for the most recent release. Open and run the downloaded installer. Select yes if a screen pops up. You can click through most of the defaults by clicking “Next". EXCEPT FOR TWO: when you get to the “Choosing the default editor used by Git” step, choose Visual Studio Code. When asked about the “initial branch name in new repositories”, please choose Override the default: and set the initial name to "main". When asked about the “initial branch name in new repositories”, please choose Override the default: and set the initial name to "main".
+Exit out of VS Code and launch it again. Click the icon on the left that has three circles connected by two squiggles. If you see a message other than one that starts with "In order to use git features", ask your instructor for help. If not, continue to the next step.
+To install GitHub Desktop, click the following link: https://desktop.github.com/download/ and choose what computer you are using. Install GitHub Desktop when it's done downloading. Once it's installed, click Sign in. Authorize GitHub Desktop and press Accept. Enter your real name, but don't change the email. Congratulations, you are all done. 
