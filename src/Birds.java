@@ -4,10 +4,10 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Image;
 
 public class Birds {
-    private Image birdImage; 
+    private Image birdImage;
 
-    private double dx = 0; 
-    private double dy = 0; 
+    private double dx = 0;
+    private double dy = 0;
     private double gravity = 0.15;
     private boolean isFlying = false;
     private int pauseFrames = 180;
@@ -36,17 +36,18 @@ public class Birds {
         birdImage.setCenter(x, y);
     }
 
-    public double getX() { 
-        return birdImage.getX(); 
-    }
-    public double getY() { 
-        return birdImage.getY(); 
-    }
-    public boolean isFlying() { 
-        return isFlying; 
+    public double getX() {
+        return birdImage.getX();
     }
 
- 
+    public double getY() {
+        return birdImage.getY();
+    }
+
+    public boolean isFlying() {
+        return isFlying;
+    }
+
     public Image getImage() {
         return birdImage;
     }
