@@ -29,6 +29,10 @@ Last login: Wed Aug 13 11:23:58 on ttys000 dan@macos ~ % git --version
  dan@macos ~
 then you have installed git in the past and you can disregard the new few steps.
 If you see an error message that says “No developer tools found” or “invalid active developer path,” then type sudo xcode-select --reset in the Terminal and press enter. It will ask you for your computer password, but you will not be able to see what you are typing. Don't worry, it is working. Type your password and press return. Then, type xcode-select --install into the Terminal and press enter.
+
 Be patient; the installation process will take a few minutes. Once it’s done, go back to that Terminal window and type git --version again. You should get a version number. For Windows users, go to http://git-scm.com/downloads and click the Download button for the most recent release. Open and run the downloaded installer. Select yes if a screen pops up. You can click through most of the defaults by clicking “Next". EXCEPT FOR TWO: when you get to the “Choosing the default editor used by Git” step, choose Visual Studio Code. When asked about the “initial branch name in new repositories”, please choose Override the default: and set the initial name to "main". When asked about the “initial branch name in new repositories”, please choose Override the default: and set the initial name to "main".
+
 Exit out of VS Code and launch it again. Click the icon on the left that has three circles connected by two squiggles. If you see a message other than one that starts with "In order to use git features", ask your instructor for help. If not, continue to the next step.
 To install GitHub Desktop, click the following link: https://desktop.github.com/download/ and choose what computer you are using. Install GitHub Desktop when it's done downloading. Once it's installed, click Sign in. Authorize GitHub Desktop and press Accept. Enter your real name, but don't change the email. Congratulations, you are all done. 
+
+The software does not really have any bugs that we know of. While developing the software, we used past homeworks and Take-Home Activities.
