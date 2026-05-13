@@ -1,12 +1,20 @@
-# Project Title Goes Here
+# Angry Birds Game
+
+## About This Repository
 
 This GitHub repository includes the classes used for our final project, which is an Angry Birds Game. The classes include the actual Angry Birds Game, Birds, Bricks, Pigs, and the Slingshot.
 
+## Required Software and Versions
+
 The version of VS Code needed is VSCode1.108.2, and the version of GitHub Desktop needed is Version 3.5.8 (arm64).
+
+## Presentation Slides and Presentation Video
 
 Presentation Slides Link: https://docs.google.com/presentation/d/1h6Cm0njqBu-rkDL_1CGS2mtbPr24sdK524_eTnA63ng/edit?slide=id.gc6f73a04f_0_0#slide=id.gc6f73a04f_0_0
 
 Video Presentation Link: https://youtu.be/viXJg4JNMHI
+
+## Setup and Run Instructions
 
 When installing Java, you need to know what kind of computer you are using. For Window users, you just select the Windows icon. For Mac users, you need to know what kind of processor your computer has. In order to see this, go to the Apple Menu and press about this Mac. Look for a heading called either Processor or Chip, and it will say something that has either the word "Intel" or "Apple". First go to https://adoptium.net. Mac users will be sent to the Adoptium homepage where you will find a big red button. Double check that you have the offered installer, and open the installer when the downloading process is complete. Go through the installation process, and accept all the defaults. Windows users will go through the installation process and accept all the defaults. If the installer asks you to make changes to you device, click Yes. Ensure that the JAVA_HOME variable is selected by clicking the dropdown menu. The folder area where JDK will be installed will be called "Eclipse Adoptium".
 
@@ -39,4 +47,10 @@ Be patient; the installation process will take a few minutes. Once it’s done, 
 Exit out of VS Code and launch it again. Click the icon on the left that has three circles connected by two squiggles. If you see a message other than one that starts with "In order to use git features", ask your instructor for help. If not, continue to the next step.
 To install GitHub Desktop, click the following link: https://desktop.github.com/download/ and choose what computer you are using. Install GitHub Desktop when it's done downloading. Once it's installed, click Sign in. Authorize GitHub Desktop and press Accept. Enter your real name, but don't change the email. Congratulations, you are all done with setting everything up. 
 
-The software does not really have any bugs that we know of. While developing the software, we used past homeworks and Take-Home Activities.
+## Known Limitations and Bugs
+
+The software does not really have any bugs that we know of. 
+
+## References and Resources
+
+While developing the software, we used past homeworks and Take-Home Activities.
