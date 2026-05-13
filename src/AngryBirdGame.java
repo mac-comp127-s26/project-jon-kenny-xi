@@ -1,0 +1,233 @@
+import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.GraphicsObject;
+import edu.macalester.graphics.Point;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class AngryBirdGame {
+    private static final int CANVAS_WIDTH = 2500;
+    private static final int CANVAS_HEIGHT = 1680;
+
+    private CanvasWindow canvas;
+    private Bricks bricks;
+    private Pigs pigs;
+    private Slingshot slingshot;
+    private boolean dragging = false;
+    private Birds currentBird;
+
+    private static final int BRICKS_ROWS = 5;
+    private static final int BRICKS_COLS = 1;
+    private static final double BRICK_SPACING = 5;
+    private static final double BRICK_HEIGHT = 20;
+    private java.util.List<Pigs> pigList = new ArrayList<>();
+    private List<Birds> activeBirds = new ArrayList<>();
+
+    private boolean gameOver = false;
+    private int lives = 10;
+
+    private edu.macalester.graphics.GraphicsText endMessage;
+
+    private edu.macalester.graphics.GraphicsText livesText;
+    private edu.macalester.graphics.GraphicsText pigsText;
+
+
+    public AngryBirdGame() {
+        double startX = CANVAS_WIDTH / 2;
+        double startY = CANVAS_HEIGHT * 0.7;
+        double anchorX = 150;
+        double anchorY = 750;
+        canvas = new CanvasWindow("AngryBirdBattleGround", 2500, 1680);
+        edu.macalester.graphics.ui.Button resetButton = new edu.macalester.graphics.ui.Button("Reset");
+        resetButton.setPosition(50, 50);
+        resetButton.onClick(() -> resetGame());
+
+        livesText = new edu.macalester.graphics.GraphicsText("Lives: " + lives);
+        livesText.setPosition(50, 90);
+        livesText.setFontSize(24);
+        canvas.add(livesText);
+
+        pigsText = new edu.macalester.graphics.GraphicsText("Pigs: 3");
+        pigsText.setPosition(50, 120);
+        pigsText.setFontSize(24);
+        canvas.add(pigsText);
+
+        canvas.add(resetButton);
+        initPigs();
+        slingshot = new Slingshot(canvas, anchorX, anchorY);
+        bricks = new Bricks(canvas);
+
+        prepareNewBird();
+
+        setupEvents();
+
+        canvas.animate(() -> {
+            if (gameOver) {
+                return;
+            }
+            updateGame();
+            updateHUD();
+            checkGameState();
+        });
+    }
+
+    private void prepareNewBird() {
+        if (lives > 0) {
+            currentBird = new Birds(canvas, slingshot.getAnchor().getX(), slingshot.getAnchor().getY());
+            lives--;
+        } else {
+            currentBird = null;
+        }
+    }
+
+    private void setupEvents() {
+        canvas.onMouseDown(event -> {
+            if (!currentBird.isFlying()) {
+                dragging = true;
+            }
+        });
+
+        canvas.onDrag(event -> {
+            if (dragging) {
+                Point anchor = slingshot.getAnchor();
+                Point mousePos = event.getPosition();
+
+                double dist = mousePos.distance(anchor);
+                if (dist > slingshot.getMaxDrag()) {
+                    double scale = slingshot.getMaxDrag() / dist;
+                    mousePos = new Point(
+                        anchor.getX() + (mousePos.getX() - anchor.getX()) * scale,
+                        anchor.getY() + (mousePos.getY() - anchor.getY()) * scale);
+                }
+
+                currentBird.setPosition(mousePos.getX(), mousePos.getY());
+                slingshot.updateRope(new Point(mousePos.getX(), mousePos.getY()));
+            }
+        });
+
+        canvas.onMouseUp(event -> {
+            if (dragging && currentBird != null) {
+                dragging = false;
+                slingshot.hideRope();
+
+                double launchPower = 0.15;
+                double diffX = slingshot.getAnchor().getX() - currentBird.getX();
+                double diffY = slingshot.getAnchor().getY() - currentBird.getY();
+
+                currentBird.setVelocity(diffX * launchPower, diffY * launchPower);
+
+                activeBirds.add(currentBird);
+                currentBird = null;
+                prepareNewBird();
+            }
+        });
+    }
+
+    private void updateGame() {
+
+        for (int i = activeBirds.size() - 1; i >= 0; i--) {
+            Birds bird = activeBirds.get(i);
+
+            bird.updateBirdPosition();
+
+            boolean hitPig = checkCollision(bird);
+
+            if (hitPig) {
+                canvas.remove(bird.getImage());
+                activeBirds.remove(i);
+            } else if (bird.getY() > CANVAS_HEIGHT) {
+                canvas.remove(bird.getImage());
+                activeBirds.remove(i);
+            }
+        }
+    }
+
+
+    private boolean checkCollision(Birds bird) {
+        double r = 30;
+        double birdX = bird.getX();
+        double birdY = bird.getY();
+
+        // Check the four points around the bird
+        java.awt.geom.Point2D.Double[] points = {
+            new java.awt.geom.Point2D.Double(birdX + r, birdY - 1),
+            new java.awt.geom.Point2D.Double(birdX + r, birdY + 2 * r + 1),
+            new java.awt.geom.Point2D.Double(birdX - 1, birdY + r),
+            new java.awt.geom.Point2D.Double(birdX + 2 * r + 1, birdY + r)
+        };
+
+        for (java.awt.geom.Point2D.Double point : points) {
+            var hitObject = canvas.getElementAt(point.getX(), point.getY());
+            if (hitObject != null) {
+                for (int j = pigList.size() - 1; j >= 0; j--) {
+                    Pigs pig = pigList.get(j);
+
+                    if (hitObject == pig.getImage()) {
+                        canvas.remove(hitObject);
+                        pigList.remove(j);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+
+    private void checkGameState() {
+        if (pigList.isEmpty()) {
+            endGame("You Win!");
+            return;
+        }
+        if (currentBird == null && activeBirds.isEmpty()) {
+            endGame("Game Over");
+        }
+    }
+
+    private void endGame(String message) {
+        gameOver = true;
+        endMessage = new edu.macalester.graphics.GraphicsText(message);
+        endMessage.setFontSize(80);
+        endMessage.setCenter(CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0);
+        canvas.add(endMessage);
+    }
+
+    private void initPigs() {
+        pigList.clear();
+        pigList.add(new Pigs(canvas, 1050, 785));
+        pigList.add(new Pigs(canvas, 1250, 685));
+        pigList.add(new Pigs(canvas, 1450, 785));
+    }
+
+    private void resetGame() {
+        for (Birds bird : activeBirds) {
+            canvas.remove(bird.getImage());
+        }
+        for (Pigs pig : pigList) {
+            canvas.remove(pig.getImage());
+        }
+        if (endMessage != null) {
+            canvas.remove(endMessage);
+        }
+        activeBirds.clear();
+        gameOver = false;
+        lives = 10;
+        initPigs();
+        prepareNewBird();
+    }
+
+    private void updateHUD() {
+        if (livesText != null && pigsText != null) {
+            livesText.setText("Lives: " + lives);
+            pigsText.setText("Pigs: " + pigList.size());
+        }
+    }
+
+    public static void main(String[] args) {
+        new AngryBirdGame();
+
+
+    }
+
+}
+
